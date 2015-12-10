@@ -37,23 +37,6 @@ def showCommands():
     print("clear          : clears screen")
     print("exit           : disconnect\n")
 
-class App:
-    def __init__(self, master):
-        self.loginFrame = Frame(master)
-        self.loginFrame.pack()
-
-        Label(loginFrame, text="Host: ").pack()
-        self.hostEntry = Entry(loginFrame)
-        self.hostEntry.pack()
-        Label(loginFrame, text="Username: ").pack()
-        self.usernameEntry = Entry(loginFrame)
-        self.usernameEntry.pack()
-        Label(loginFrame, text="Password: ").pack()
-        self.passwordEntry = Entry(loginFrame, show="*")
-        self.passwordEntry.pack()
-
-
-
 def main():
     clearScreen()
     print("Welcome to the Python FTP Client")
