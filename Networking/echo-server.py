@@ -6,13 +6,13 @@ PORT = 50007
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.bind((HOST, PORT))
-
-s.listen(1)         # listen for maximum 1 connection
-conn, addr = s.accept()
-print('Connected by', addr)
+s.listen(5)
 
 while True:
-    data = conn.recv(1024)
-    if not data: break
-    conn.sendall(data)
-conn.close()
+    conn, addr = s.accept()
+    print('Server connected by', addr)
+    while True:
+        data = conn.recv(1024)
+        if not data: break
+        conn.send(b'Echo=>' + data)
+    conn.close()
