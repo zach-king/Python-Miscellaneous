@@ -9,6 +9,7 @@ if len(sys.argv) != 3:
 
 parser = jsondb.JsonDbParser()
 b = parser.parse(sys.argv[2])
+print(b)
 
 dev = socketcan.SocketCanDev(sys.argv[1])
 dev.start()
