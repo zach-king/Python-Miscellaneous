@@ -2,7 +2,7 @@ import serial
 import time
 import datetime
 
-fname = datetime.datetime.now().strftime("%Y-%m-%d---%H:%M.log")
+fname = 'logs/' + datetime.datetime.now().strftime("%Y-%m-%d---%H:%M.log")
 log = open(fname, 'w')
 
 ser = serial.Serial('/dev/ttyACM0', 9600)
