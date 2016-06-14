@@ -1,6 +1,7 @@
 import serial
 import time
 import datetime
+import can_hash
 
 fname = 'logs/' + datetime.datetime.now().strftime("%Y-%m-%d---%H:%M.log")
 log = open(fname, 'w')
