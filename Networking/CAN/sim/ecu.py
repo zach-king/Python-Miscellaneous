@@ -9,7 +9,7 @@ class ECU(object):
         self._name = name
         self._canbus = None
         self.msg_list = []
-        self.handled_file = self._name + '.ids'
+        self.handled_file = self._name + '.dat'
 
     def SetBus(self, bus):
         self._canbus = bus
@@ -18,6 +18,10 @@ class ECU(object):
         self.msg_list.append(msg)
         if self.HandlesMessage(msg):
             self.HandleMessage(msg)
+
+    def SendMessage(self, msg):
+        if self._canbus != None:
+            self._canbus.Send(msg)
 
     def SetHandleFile(self, fname):
         self.handled_file = fname
