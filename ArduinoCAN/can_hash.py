@@ -13,7 +13,7 @@ def sign_msg(orig_msg):
         print('No key for that message ID')
         sys.exit(1)
 
-    signature = hex(fnv1a_32(_key + msg[6:].encode()))[2:]
+    signature = get_signature(_key, msg[6:].encode())
     if len(signature) != 8:
         signature = pad_signature(signature)
 
@@ -24,6 +24,9 @@ def pad_signature(signature):
     l = len(signature)
     padding = '0' * (8 - l)
     return padding + signature
+
+def get_signature(_key, data):
+    return hex(fnv1a_32(_key + data))[2:]
 
 if __name__ == '__main__':
     print(sign_msg('100#020338'))

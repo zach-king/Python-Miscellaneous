@@ -1,9 +1,8 @@
 from canard import can
-from canard.hw import peak
-from canard.hw import socketcan
+from canard.hw import cantact
 
 #dev = peak.PcanDev()
-dev = socketcan.SocketCanDev("vcan0")
+dev = cantact.CantactDev("/dev/ttyUSB0")
 
 dev.start()
 
