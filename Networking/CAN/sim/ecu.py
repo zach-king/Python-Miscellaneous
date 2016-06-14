@@ -15,6 +15,7 @@ class ECU(object):
         self._canbus = bus
         
     def TakeMessage(self, msg):
+        #print(self._name + ' RX: ' + msg)
         self.msg_list.append(msg)
         if self.HandlesMessage(msg):
             self.HandleMessage(msg)
@@ -28,7 +29,8 @@ class ECU(object):
 
     def HandlesMessage(self, msg):
         with open(self.handled_file, 'r') as f:
-            return msg[:3] in f
+            ids = f.read().splitlines()
+            return msg[:3] in ids
 
     def HandleMessage(self, msg):
         print(self._name + ' handled ' + msg)
