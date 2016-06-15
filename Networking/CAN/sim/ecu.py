@@ -1,5 +1,7 @@
 import secure_hardware_module as shm
 import auth
+import socket
+import time
 
 class ECU(object):
     """
@@ -12,9 +14,16 @@ class ECU(object):
         self._canbus = None
         self.msg_list = []
         self.handled_file = self._name + '.dat'
+        self._sock = socket.socket()
 
     def SetBus(self, bus):
         self._canbus = bus
+        self._sock.connect(('127.0.0.1', 50000))
+        self.Operate()
+
+    def Operate(self):
+        while True:
+            self.Receive()
         
     def TakeMessage(self, msg):
         print(self._name + ' RX: ' + str(msg))
@@ -31,6 +40,10 @@ class ECU(object):
             for m in auth_msg:
                 self._canbus.Send(m)
             self._canbus.Send(msg)
+
+    def Receive(self):
+        msg = self._sock.recv(1024)
+        print('Received', str(msg))
 
     def SetHandleFile(self, fname):
         self.handled_file = fname

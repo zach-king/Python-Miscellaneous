@@ -1,5 +1,5 @@
 import ecu
-import sim_can as sc
+import can_bus_server as sc
 import auth
 
 bus = sc.Bus()
@@ -14,7 +14,7 @@ bus.AddECU(ecu1)
 bus.AddECU(ecu2)
 bus.Init() # set each ecu to connect to this bus
 
-ecu1.Send('200#02010d')
+#ecu1.Send('200#02010d') # test authentication
 
 while True:
     msg = input('Enter msg: ')
