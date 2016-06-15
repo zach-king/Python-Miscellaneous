@@ -1,3 +1,5 @@
+import secure_hardware_module as shm
+import auth
 
 class ECU(object):
     """
@@ -15,13 +17,19 @@ class ECU(object):
         self._canbus = bus
         
     def TakeMessage(self, msg):
-        #print(self._name + ' RX: ' + msg)
+        print(self._name + ' RX: ' + str(msg))
         self.msg_list.append(msg)
         if self.HandlesMessage(msg):
             self.HandleMessage(msg)
 
-    def SendMessage(self, msg):
+    def Send(self, msg):
         if self._canbus != None:
+            auth_msg = self.Sign(msg)
+            if msg == -1:
+                print('Failed to sign message')
+                return
+            for m in auth_msg:
+                self._canbus.Send(m)
             self._canbus.Send(msg)
 
     def SetHandleFile(self, fname):
@@ -33,7 +41,14 @@ class ECU(object):
             return msg[:3] in ids
 
     def HandleMessage(self, msg):
-        print(self._name + ' handled ' + msg)
+        #print(self._name + ' handled ' + msg)
+        pass
+
+    def Sign(self, msg):
+        _key = shm.get_key(self._id)
+        if _key == -1:
+            return -1
+        return auth.sign_message(_key, msg)
 
     def __str__(self):
         return self._name
