@@ -1,9 +1,0 @@
-{
-    "messages": [
-        {
-        "name": "Authenticate",
-        "id": "0x000",
-        "signals": {"0": {"name": "Hash", "bit_length": 64}}
-        }
-    ]
-}
