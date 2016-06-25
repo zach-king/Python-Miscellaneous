@@ -12,10 +12,9 @@ def main(message=None, key=None, mode=None):
     if mode == None:
         mode = int(input("Encrypt (1) or Decrypt (0)? : "))
 
-    LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-=_+<>[]{},./?;:"\'\\|`~'
 
     translated = ''
-    message = message.upper()
 
     for symbol in message:
         if symbol in LETTERS:
