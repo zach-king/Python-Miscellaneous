@@ -25,7 +25,7 @@ def main(fname=None, key=None, mode=None):
         if not response.lower().startswith('c'):
             sys.exit()
 
-    with open(outputFilename, 'r') as fileObj:
+    with open(fname, 'r') as fileObj:
         content = fileObj.read()
 
     print('%sing...' % mode.title())
