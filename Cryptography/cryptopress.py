@@ -14,7 +14,7 @@ Description: Cryptopress translates to 'cryptography compression.'
 from Crypto import Random
 from Crypto.Cipher import AES
 import base64, hashlib
-import sys, os
+import sys, os, shutil
 import argparse
 
 class AESCipher(object):
@@ -139,11 +139,15 @@ if __name__ == '__main__':
                 continue 
 
             if os.path.isdir(path):
-                # given a directory, delete all files and the directory, recursively
-                for root, dirs, files in os.walk(path):
-                    paths = [os.path.join(root, fyle) for fyle in files]
-                    for p in paths:
-                        os.remove(p)
-                os.removedirs(path)
-            else:
-                os.remove(path)
+                for file in os.listdir(path):
+                    file_path = os.path.join(path, file)
+                    try:
+                        if os.path.isfile(file_path):
+                            os.unlink(file_path)
+                        elif os.path.isdir(file_path):
+                            shutil.rmtree(file_path)
+                    except Exception as e:
+                        print(e)
+                os.rmdir(path)
+            elif os.path.isfile(path):
+                os.remove(path)
