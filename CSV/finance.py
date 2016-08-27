@@ -6,8 +6,10 @@ are in CSV format.
 
 import csv
 import sys
+import tkinter as tk
 
-def main(filepath):
+def process_csv():
+    filepath = fileInput.get()
     with open(filepath, newline='') as csvfile:
         data = []
         reader = csv.reader(csvfile, delimiter=',')
@@ -19,22 +21,31 @@ def main(filepath):
 
 def parse_row(row):
     data = {
-        'Checksum': data[0],
-        'Debit/Credit': data[3],
-        'Value': data[4],
-        'Date': data[6],
-        'Vendor': data[7],
-        'Description': data[8],
-        'Account': data[12],
-        'Category': data[13]
+        'Checksum': row[0],
+        'Debit/Credit': row[3],
+        'Value': row[4],
+        'Date': row[6],
+        'Vendor': row[7],
+        'Description': row[8],
+        'Account': row[12],
+        'Category': row[13]
         }
     return data
-    
 
 
-if __name__ == '__main__':
-    if len(sys.argv) > 1:
-        main(sys.argv[1])
-    else:
-        filepath = input('CSV Filepath: ')
-        main(filepath)
+root = tk.Tk()
+root.title('FBT Transaction Records')
+fileInput = tk.Entry(root, width=60)
+processButton = tk.Button(root, text='Process Record')
+recordList = tk.Text(root)
+
+# Geometry Manager
+tk.Label(root, text='CSV Filepath: ').grid(row=0, column=0, sticky=tk.NSEW)
+fileInput.grid(row=0, column=1, sticky=tk.NSEW)
+processButton.grid(row=0, column=2, sticky=tk.NSEW)
+recordList.grid(row=1, column=0, columnspan=3, sticky=tk.NSEW)
+
+processButton.config(command=process_csv)
+
+root.mainloop()
+
