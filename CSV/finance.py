@@ -7,10 +7,10 @@ are in CSV format.
 import csv
 import sys
 import tkinter as tk
+from tkinter import filedialog
 
 def process_csv():
-    filepath = fileInput.get()
-    with open(filepath, newline='') as csvfile:
+    with filedialog.askopenfile() as csvfile:
         data = []
         reader = csv.reader(csvfile, delimiter=',')
         for row in reader:
@@ -35,15 +35,12 @@ def parse_row(row):
 
 root = tk.Tk()
 root.title('FBT Transaction Records')
-fileInput = tk.Entry(root, width=60)
-processButton = tk.Button(root, text='Process Record')
+processButton = tk.Button(root, text='Open Record')
 recordList = tk.Text(root)
 
 # Geometry Manager
-tk.Label(root, text='CSV Filepath: ').grid(row=0, column=0, sticky=tk.NSEW)
-fileInput.grid(row=0, column=1, sticky=tk.NSEW)
-processButton.grid(row=0, column=2, sticky=tk.NSEW)
-recordList.grid(row=1, column=0, columnspan=3, sticky=tk.NSEW)
+processButton.grid(row=0, column=0, sticky=tk.NSEW)
+recordList.grid(row=1, column=0, sticky=tk.NSEW)
 
 processButton.config(command=process_csv)
 
